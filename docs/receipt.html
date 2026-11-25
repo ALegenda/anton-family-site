@@ -13,12 +13,5 @@
     <h1>Квитанция семейного атласа</h1>
     <p>Эту страницу можно закрыть.</p>
   </main>
-  <script>
-    const submission = new URLSearchParams(location.search).get("submission");
-    const receiver = window.parent === window ? window.opener : window.parent;
-    if (receiver && /^[a-f0-9]{32}$/.test(submission || "")) {
-      receiver.postMessage({ type: "family-atlas-contribution-receipt", submission }, location.origin);
-    }
-  </script>
 </body>
 </html>
