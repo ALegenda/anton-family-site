@@ -1,0 +1,12 @@
+*
+!.gitignore
+!README.md
+!pack.mjs
+!gate.html
+!docs/
+!docs/.nojekyll
+!docs/index.html
+!docs/tree.html
+!docs/contribute.html
+!docs/unlock.js
+!docs/family.bin
