@@ -1,4 +1,4 @@
-import { createCipheriv, createDecipheriv, randomBytes } from 'node:crypto';
+import { createCipheriv, createDecipheriv, createHash, randomBytes } from 'node:crypto';
 import { readFileSync, writeFileSync, readdirSync, mkdirSync, renameSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { basename, join } from 'node:path';
@@ -54,7 +54,8 @@ if (unpack) {
   const tempFile = bundle + '.' + randomBytes(5).toString('hex') + '.tmp';
   writeFileSync(tempFile, data, {flag:'wx'});
   renameSync(tempFile, bundle);
-  const gate = readFileSync(join(root, 'gate.html'));
+  const edition = createHash('sha256').update(data).digest('hex').slice(0,16);
+  const gate = readFileSync(join(root, 'gate.html'),'utf8').replace('__FAMILY_EDITION__',edition);
   for (const name of pages) {
     writeFileSync(join(output,name),gate);
   }

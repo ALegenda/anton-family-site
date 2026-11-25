@@ -13,7 +13,9 @@ async function openSite() {
     if (!/^[\w-]{43}$/.test(key)) throw Error();
     const bytes = Uint8Array.from(atob(key.replace(/-/g,'+').replace(/_/g,'/') + '='), c => c.charCodeAt(0));
     const cryptoKey = await crypto.subtle.importKey('raw', bytes, 'AES-GCM', false, ['decrypt']);
-    const response = await fetch(new URL('family.bin',folder), {cache: 'no-cache'});
+    const bundle = new URL('family.bin',folder);
+    bundle.search = new URL(import.meta.url).search;
+    const response = await fetch(bundle, {cache: 'no-cache'});
     if (!response.ok) throw Error();
     const blob = new Uint8Array(await response.arrayBuffer());
     plain = await crypto.subtle.decrypt({name:'AES-GCM',iv:blob.slice(0,12)},cryptoKey,blob.slice(12));
