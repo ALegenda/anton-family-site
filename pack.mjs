@@ -44,7 +44,7 @@ if (unpack) {
   if (!files['index.html'] || !files['contribute.html']) throw Error('Нет обязательной страницы.');
   mkdirSync(output,{recursive:true});
   const pages = Object.keys(files).filter(name => name.endsWith('.html'));
-  const publicFiles = new Set(['.nojekyll','family.bin','unlock.js',...pages]);
+  const publicFiles = new Set(['.nojekyll','family.bin','unlock.js','receipt.html',...pages]);
   for (const name of readdirSync(output)) {
     if (!publicFiles.has(name)) throw Error('Проверьте лишний файл в каталоге публикации: ' + name);
   }
